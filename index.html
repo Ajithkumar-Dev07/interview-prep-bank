@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Production Support Interview Bank</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="drawer-scrim"></div>
+<div id="shell">
+  <aside id="sidebar">
+    <div class="brand">
+      <div class="tag">// PRODUCTION SUPPORT</div>
+      <h1>Interview Prep Bank</h1>
+      <p>Searchable Q&amp;A for support-engineer interviews</p>
+    </div>
+    <div class="side-section">
+      <h2>Topics</h2>
+      <ul class="topic-list" id="topicList"></ul>
+    </div>
+    <div class="side-section">
+      <h2>View</h2>
+      <div class="toggle-row" id="favToggleRow">
+        <span>★ Favorites only</span>
+        <button class="switch" id="favSwitch"></button>
+      </div>
+    </div>
+    <!--
+      This app is read-only: content lives entirely in /data as JSON
+      files pulled from this GitHub repo (see data/index.json and
+      data/topics/*.json). To add or change content, edit those files
+      and push -- there is no in-app editor. See README.md.
+    -->
+    <div id="sidebar-footer">
+      Content is loaded from <code>data/</code> in this repository. To add a topic, add a JSON file and push to GitHub -- see README.md.
+    </div>
+  </aside>
+
+  <div id="main">
+    <div id="mobilebar">
+      <button id="btnDrawer">☰ Topics</button>
+      <div class="brand-m">Interview Prep Bank</div>
+    </div>
+    <div id="topbar">
+      <div id="searchwrap">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        </span>
+        <input id="searchbox" type="text" placeholder="Search by heading, keyword, command, or topic..." autocomplete="off" disabled>
+        <button id="searchclear">✕</button>
+        <div id="autocomplete"></div>
+      </div>
+      <div id="activebar">
+        <span id="resultcount"></span>
+      </div>
+    </div>
+    <div id="content">
+      <div id="loadingstate">
+        <div class="spinner"></div>
+        <p>Loading question bank from <code>data/index.json</code>…</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

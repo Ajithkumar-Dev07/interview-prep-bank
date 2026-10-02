@@ -1,0 +1,56 @@
+[
+ {
+  "id": "q1",
+  "heading": "Do you have idea on API? Or What is an API?",
+  "parentHeading": null,
+  "content": "Yes, I do have a good understanding of APIs.\n\nAPI stands for Application Programming Interface, and it basically acts\nas a bridge that allows two systems or applications to communicate with\neach other.\n\nIn my production support experience, I've worked with APIs mainly from a\nmonitoring and troubleshooting perspective.\n\nMy role has been to make sure APIs are available, performing correctly,\nand integrated smoothly with other systems."
+ },
+ {
+  "id": "q2",
+  "heading": "Have you worked with Postman before? Or How do you test an API using Postman?",
+  "parentHeading": null,
+  "content": "Yes, I have hands‑on experience using Postman for API testing and\ntroubleshooting in my support work.\n\nBasically, use it to reproduce API calls when issues are reported in\nproduction.\n\nFor example, I paste the endpoint into Postman, select the correct HTTP\nmethod (GET, POST, PUT, DELETE), and add the required headers such as\nContent-Type or Authorization.\n\nI validate the response codes --- like 200 for success, 400 for client\nerrors, or 500 for server errors --- and check the payload to confirm\nwhether the issue is on the client side or server side.\n\nThis helps me quickly perform root cause analysis, and provide accurate\ninformation to developers or infrastructure teams during incident\nresolution."
+ },
+ {
+  "id": "q3",
+  "heading": "What are the response codes and what does each codes indicates?",
+  "parentHeading": null,
+  "content": "Yes, I'm familiar with API response codes. These codes indicate the\nstatus of a request between client and server.\n\nFor example:\n\n- 200 Series means (Success) → The request was successful.\n\n- 400 Series means (Client Errors) → The issue is with the request\n from the client side.\n\n- 500 Series means (Server Errors) → The issue is on the server\n side.\n\nIn production support, I use these codes to quickly identify whether the\nissue is on the client side or server and then coordinate with the right\nteam to resolve it."
+ },
+ {
+  "id": "q4",
+  "heading": "What are common HTTP methods?",
+  "parentHeading": null,
+  "content": "The common HTTP Methods are\n\nGET (fetch data)\n\nPOST (create data)\n\nPUT/PATCH (update data)\n\nDELETE (remove data)"
+ },
+ {
+  "id": "q5",
+  "heading": "How do you send a POST request in Postman?",
+  "parentHeading": null,
+  "content": "First Choose POST then paste the URL then go to Body → raw → JSON, enter\nthe payload, and click Send.\n\nThen I check the response code and body."
+ },
+ {
+  "id": "q6",
+  "heading": "How do you handle authentication in Postman?",
+  "parentHeading": null,
+  "content": "I add API keys or tokens in the Headers tab, or use the Authorization\ntab for Bearer tokens. This ensures the request is authenticated\nproperly.\n\nIf authentication fails, I check whether the token is expired or\nmisconfigured and coordinate with the DevOps team to refresh or fix it."
+ },
+ {
+  "id": "q7",
+  "heading": "Have you worked with Confluence? What kind of documentation did you maintain?",
+  "parentHeading": null,
+  "content": "Yes, I have used Confluence for maintaining knowledge base articles, RCA\ndocumentation.\n\nFor example, after resolving a recurring API timeout issue, I documented\nthe RCA and the resolution steps in Confluence so the team could refer\nto it in future incidents.\n\nThis reduced repeated troubleshooting and improved knowledge sharing."
+ },
+ {
+  "id": "q8",
+  "heading": "How do you use Webex in your workflow?",
+  "parentHeading": null,
+  "content": "I use Webex mainly for bridge calls during critical incidents and\nrelease coordination meetings.\n\nMeetings can be recorded and key points noted for RCA or post‑incident\nreviews.\n\nFor example, during major incidents (P1/P2), Webex is used to host\nbridge calls where support engineers, developers, DBAs and stakeholders\njoin to troubleshoot in real time."
+ },
+ {
+  "id": "q9",
+  "heading": "Have you used Slack in your projects? How did it help you in production support?",
+  "parentHeading": null,
+  "content": "Yes, I have used Slack for real‑time communication. In production\nsupport, Slack channels are often used for incident alerts and quick\ncoordination.\n\nFor example, during a P1 incident, I monitored the incident channel,\nshared updates with Dev and Infra teams, and ensured stakeholders were\ninformed instantly.\n\nSlack helped reduce response time and improved collaboration."
+ }
+]

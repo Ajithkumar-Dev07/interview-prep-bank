@@ -1,0 +1,14 @@
+[
+ {
+  "id": "q1",
+  "heading": "Deployments",
+  "parentHeading": null,
+  "content": "There are two types of deployments we deal with\n\n- database deployments and\n\n- application deployments.\n\nMy role is mainly in database deployments. During change management, my\njob is to deploy the SQL scripts.\n\nI have schema access for 5 users, and I handle deployment of DB scripts\n--- this is Oracle --- things like DDL and DML, which I apply to\nproduction for the application deployment.\n\nIf anything fails, I send the log files over to the development team,\nand they assist from there.\n\nI also have an idea about application deployment --- the web application\nis packaged as a WAR file, a web archive. We generate that WAR file\nusing a tool or an IDE like Eclipse.\n\nWe then copy the WAR file into the \\$CATALINA_HOME/webapps directory,\nand after that, restart the server.\n\nWhenever Tomcat starts up, it automatically unpacks the WAR file it\nfinds in the webapps directory and launches the application.\n\nTo stop or restart Apache Tomcat, we go to apache_home/bin --- running\n./shutdown.sh stops it, and ./startup.sh restarts it."
+ },
+ {
+  "id": "q2",
+  "heading": "Disaster Recovery",
+  "parentHeading": null,
+  "content": "Yes, I do have an idea about disaster recovery.\n\nIn my project, the client has their servers located in Australia, and\nthe disaster recovery servers are set up in Manila, Philippines.\n\nThe plan is --- if there's ever a disaster or a major failure, we\nswitch over to the DR servers in Manila.\n\nWe have a separate team that handles disaster recovery specifically, and\nthey run DR drills once every two weeks, over the weekend."
+ }
+]

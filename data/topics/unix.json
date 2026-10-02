@@ -1,0 +1,128 @@
+[
+ {
+  "id": "q1",
+  "heading": "How will you rate yourself in Unix?",
+  "parentHeading": null,
+  "content": "I will rate myself 3.5 out of 5\n\nI will rate myself 7 out of 10"
+ },
+ {
+  "id": "q2",
+  "heading": "What are Unix commands you have used",
+  "parentHeading": null,
+  "content": "In my project, I used Unix through PuTTY to connect to the Unix\nserver.\n\nWe mainly used Unix commands to check log files, monitor feed files, and\nperform basic file operations.\n\nSome of the Unix commands I have used are:\n\n- To view files: We use commands like cat, head, tail, less, and\n more.\n\n- To edit files: We use the vi editor.\n\n- To search within a file: We use the grep command.\n\n- For word or line count: We use the wc command, such as wc -l to\n count the number of lines.\n\n- To substitute or replace text in a file: We use the sed command,\n which is a stream editor.\n\n- For file permissions: We use the chmod command.\n\n- To schedule jobs: We use the crontab command.\n\nI have also used some basic network commands, such as:\n\n- whoami -- Displays the currently logged-in user.\n\n- hostname -- Displays the system's host name.\n\n- ping -- Checks network connectivity to another host.\n\n- ifconfig or ip addr -- Displays the IP address and network interface\n details.\n\n- netstat -- Displays network connections and listening ports.\n\n- nslookup -- Retrieves the IP address or DNS information for a host.\n\n- traceroute -- Displays the path taken by packets to reach a\n destination.\n\n- telnet -- Tests connectivity to a specific server and port.\n\n- ssh -- Connects securely to a remote Unix/Linux server.\n\nThese are the Unix commands I have used in my project for log\nmonitoring, file handling, job scheduling, permissions management, and\nbasic network troubleshooting."
+ },
+ {
+  "id": "q3",
+  "heading": "Find 15 Days Older Files And Remove Them",
+  "parentHeading": null,
+  "content": "In this scenario, we can use the find command.\n\nCOMMAND: find / -type f -mtime +15 -exec rm -rf {} \\\\;\n\nLet me explain this command.\n\n- / Represents the root directory.\n\n- -type f tells the find command to search only for files. If we\n want to search for directories, we can use -type d.\n\n- -mtime +15 means files whose modification time is more than 15\n days old.\n\n- -exec is used to execute a command on each file found. Here, I\n am using the rm -rf command to remove the files.\n\n- rm is the remove command.\n\n- -r means recursive.\n\n- -f means force, which removes the files without prompting for\n confirmation.\n\nSo, this command searches for files that are more than 15 days old and\nremoves them automatically."
+ },
+ {
+  "id": "q4",
+  "heading": "Find 5 GB Greater Files And Remove Them",
+  "parentHeading": null,
+  "content": "In this scenario, we can use the find command.\n\nCOMMAND : find / -type f -size +5G -exec rm -rf {} \\\\;\n\nLet me explain this command.\n\n- / represents the root directory.\n\n- -type f tells the find command to search only for files.\n\n- -size +5G means files that are greater than 5 GB in size.\n\n- -exec is used to execute a command on each file found.\n\n- Here, I am using rm -rf to remove the files.\n\n- rm is the remove command.\n\n- -r means recursive.\n\n- -f means force.\n\nSo, this command searches for files larger than 5 GB and removes\nthem automatically.\n\nI Want To Find And Replace A Specific String Or Sed\n\nIn this scenario, we can use the sed command.\n\nsed 's/madras/chennai/Ig' file.txt\n\nLet me explain this command.\n\n- sed stands for Stream Editor.\n\n- Here, all occurrences of \"madras\" are replaced with\n \"chennai\".\n\n- I am using the substitute option (s) in sed.\n\nIn the command, I have used I and g:\n\n- I means case-insensitive. It will replace both lowercase\n \"madras\" and uppercase \"MADRAS\", as well as other case\n variations.\n\n- g means global. By default, sed replaces only the first\n occurrence in each line. To replace all occurrences in a line, I use\n the g option.\n\nSo, this command replaces all occurrences of \"madras\" with\n\"chennai\" in a case-insensitive manner throughout the file.\n\nHow Will You Change The Permission Of The File Or What Is Chmod\nCommand\n\nWe can use the chmod command, which stands for change mode.\n\nThe chmod command is used to change the permissions of a file or\ndirectory. With the help of chmod, we can provide permissions to the\nuser, group, and others.\n\nTo assign permissions, we use the numeric method, where:\n\n- 4 represents Read (r).\n\n- 2 represents Write (w).\n\n- 1 represents Execute (x).\n\nFor example, if I want to change the permission of a file to rw-rw-r--,\nI can use the following command:\n\nchmod 664 filename.txt\n\nHere:\n\n- User gets Read and Write (6 = 4 + 2).\n\n- Group gets Read and Write (6 = 4 + 2).\n\n- Others get Read only (4).\n\nTo give full permissions to the file, we can use:\n\nchmod 777 filename.txt\n\nThis gives Read, Write, and Execute permissions to the user,\ngroup, and others.\n\nTo give Read-only permission to the user and group, we can use:\n\nchmod 440 filename.txt\n\nHere, both the user and group have Read-only permission, and\nothers have no permission.\n\nWhat Is The Default Permission Of A File\n\nThe default permission of a newly created file is typically 644,\nwhich is represented as rw-r--r--.\n\nHere's the breakdown:\n\n- Owner: Read and Write permissions (4 + 2 = 6), which is rw-.\n\n- Group: Read permission (4), which is r--.\n\n- Others: Read permission (4), which is r--.\n\nSo, when a new file is created, the owner has Read and Write\npermissions, while the group and others have Read-only permission.\nTherefore, the default permission is 644 (rw-r--r--).\n\nDisplay Only The 15 Th Lines Of The File\n\nWe can do this in two ways. One approach is to use a combination of the\nhead and tail commands, and the other approach is to use the sed\ncommand.\n\n### Approach 1: Using head and tail\n\nhead -15 filename.txt \\| tail -1\n\nIn this approach, I use head -15 to get the first 15 lines of the file.\nThen, I redirect the output of the head command to the tail command\nusing a pipe (\\|). Finally, tail -1 displays only the last line from\nthat output, which is the 15th line of the file.\n\n### Approach 2: Using sed\n\nsed -n '15p' filename.txt\n\nIn this approach, I use the sed command along with the -n option and the\np (print) command. This prints only the 15th line of the file."
+ },
+ {
+  "id": "q5",
+  "heading": "How will you print lines 10 to 15?",
+  "parentHeading": null,
+  "content": "Again, we can do this in two ways.\n\n### Approach 1: Using head and tail\n\nhead -15 filename.txt \\| tail -6\n\nHere, head -15 returns the first 15 lines of the file. Then, I redirect\nthe output to the tail command, and tail -6 displays the last 6 lines\nfrom that output, which are lines 10 through 15.\n\n### Approach 2: Using sed\n\nsed -n '10,15p' filename.txt\n\nIn this approach, I use the sed command with the -n option and the p\n(print) command to print only lines 10 to 15.\n\nI Want You To Schedule A Job Which Runs 10 Am Everyday Crontab"
+ },
+ {
+  "id": "q6",
+  "heading": "How will you schedule a job to run at 10 AM every day?",
+  "parentHeading": "How will you print lines 10 to 15?",
+  "content": "We can use the crontab utility to schedule jobs in Unix.\n\nFirst, we open the crontab file using:\n\ncrontab -e\n\nA cron expression consists of five fields, represented by five\nasterisks ( ).\n\n- The first field represents Minutes, and its range is 0 to\n 59.\n\n- The second field represents Hours, and its range is 0 to\n 23.\n\n- The third field represents the Day of the Month, and its\n range is 1 to 31.\n\n- The fourth field represents the Month of the Year, and its\n range is 1 to 12, or we can use month names such as JAN, FEB,\n MAR, and so on.\n\n- The fifth field represents the Day of the Week, and its\n range is 0 to 6, where 0 represents Sunday, 1 represents\n Monday, and 6 represents Saturday.\n\nTo schedule a job to run at 10:00 AM every day, we use:\n\n0 10 scriptname.sh\n\nHere:\n\n- 0 → Minute\n\n- 10 → Hour (10 AM)\n\n- → Every day of the month\n\n- → Every month\n\n- → Every day of the week\n\nTo schedule a job to run at 10:00 AM every Saturday, we use:\n\n0 10 6 scriptname.sh\n\nHere, 6 represents Saturday, so the script runs every Saturday\nat 10:00 AM."
+ },
+ {
+  "id": "q7",
+  "heading": "I Want To Search for Word Called Error In A File",
+  "parentHeading": null,
+  "content": "In this scenario, we can use the grep command.\n\ngrep -i 'error' /home/vheera/file.log\n\nLet me explain this command.\n\nHere, I am using the grep command. grep stands for Global Regular\nExpression Print.\n\nI am using the -i option, where i stands for case-insensitive. This\nmeans the command searches for the word \"error\" regardless of\nwhether it appears as error, ERROR, Error, or in any other\ncombination of uppercase and lowercase letters.\n\nSo, this command searches the file /home/vheera/file.log and displays\nall the lines that contain the word \"error\", irrespective of the\nletter case."
+ },
+ {
+  "id": "q8",
+  "heading": "How Will You Search Recursive In Grep",
+  "parentHeading": null,
+  "content": "In this scenario, we can use the grep command with the -r and -i\noptions.\n\ngrep -ir 'error' /home/satya/\n\nLet me explain this command.\n\nHere, I am using the grep command. grep stands for Global Regular\nExpression Print.\n\nI am using the -i option, where i stands for case-insensitive. This\nmeans the command searches for the word \"error\" regardless of\nwhether it appears as error, ERROR, Error, or in any other\ncombination of uppercase and lowercase letters.\n\nI am also using the -r option, where r stands for recursive. This\ntells grep to search not only in the specified directory but also in all\nits subdirectories.\n\nSo, this command searches for the word \"error\" in all files under\nthe /home/satya/ directory and its subdirectories, without considering\nthe letter case."
+ },
+ {
+  "id": "q9",
+  "heading": "How Will You Search Multiple Patterns",
+  "parentHeading": null,
+  "content": "In this scenario, we can use the egrep command.\n\negrep -i 'error\\|abort\\|failed' /home/vheera/file.log\n\nLet me explain this command.\n\nHere, I am using the egrep command. egrep stands for Extended Global\nRegular Expression Print.\n\negrep is used to search for multiple words or patterns in a file. In\nthis example, it searches for the words \"error\", \"abort\", or\n\"failed\".\n\nI am using the -i option, where i stands for case-insensitive. This\nmeans the command searches for the specified words regardless of whether\nthey appear in uppercase, lowercase, or a combination of both.\n\nSo, this command searches the file /home/vheera/file.log and displays\nall the lines that contain \"error\", \"abort\", or\n\"failed\", without considering the letter case."
+ },
+ {
+  "id": "q10",
+  "heading": "Hard Vs Soft Link",
+  "parentHeading": null,
+  "content": "Hard links are created using the ln command.\n\nSoft links are created using the ln -s command.\n\nA hard link creates another reference to the same file. When we\ncreate a hard link, the link count of the file increases by 1.\n\nIf we remove one of the hard links, the link count decreases by 1,\nbut the file remains available as long as at least one hard link exists.\n\nA soft link, also known as a symbolic link, is a shortcut to a\nfile, similar to a Windows shortcut. It points to the original file\nrather than storing the file itself.\n\nIf the original file is removed, the soft link becomes invalid or\nbroken because it no longer points to a valid file."
+ },
+ {
+  "id": "q11",
+  "heading": "How Will You Edit A File",
+  "parentHeading": null,
+  "content": "To edit a file in Unix, we use the vi editor.\n\nThe vi editor has two modes:\n\n- Command mode\n\n- Insert mode\n\nTo enter Insert mode, we press the i key. In Insert mode, we can\ncreate or edit the contents of the file.\n\nTo return to Command mode, we press the Esc key.\n\nTo create a new file or open an existing file, we use the following\ncommand:\n\nvi filename.txt\n\nTo save the changes and quit, we use :wq\n\nTo quit without saving the changes, we use :q!\n\nSo, these are the basic commands I have used while working with the vi\neditor to create and edit files in Unix."
+ },
+ {
+  "id": "q12",
+  "heading": "I Want To See The 15 Top Size Consuming Files",
+  "parentHeading": null,
+  "content": "In this scenario, we can use the following command:\n\ndu -a \\| sort -nr \\| head -15\n\nLet me explain this command.\n\nHere, I am using the du command, which stands for Disk Usage. The -a\noption displays the size of both files and directories.\n\nI am passing the output of the du command to the sort command using a\npipe (\\|).\n\nHere, -n stands for numeric sort, and -r stands for reverse\norder, so the files are sorted from the largest size to the smallest.\n\nFinally, I am using the head command with -15 to display the top 15\nsize-consuming files.\n\nSo, this command lists the top 15 largest files and directories based on\ntheir disk usage."
+ },
+ {
+  "id": "q13",
+  "heading": "I Want To See The 15 Top Size Consuming Files",
+  "parentHeading": null,
+  "content": "Let's consider the following shell script:\n\n#!/bin/bash\n\nnum1=10\n\nnum2=20\n\nif \\[ \\$num1 -ge \\$num2 \\]\n\nthen\n\necho \"num1 is greater than or equal to num2\"\n\nelse\n\necho \"num1 is less than num2\"\n\nfi\n\nLet me explain the script.\n\n- #!/bin/bash is called the shebang. It is the first line of the\n shell script. It tells the interpreter which shell should be used to\n execute the script, such as sh, ksh, or bash.\n\n- num1=10 and num2=20 are variable declarations.\n\n- Next, I am using an if statement to compare the two variables.\n\n- -ge stands for greater than or equal to.\n\n- If num1 is greater than or equal to num2, the script prints:\n\nnum1 is greater than or equal to num2\n\n- Otherwise, it prints:\n\nnum1 is less than num2\n\nSo, this script compares two numbers and displays the appropriate\nmessage based on the result of the comparison."
+ },
+ {
+  "id": "q14",
+  "heading": "Giving Execute Permission To Script",
+  "parentHeading": null,
+  "content": "Simple, its chmod 700 greater.sh"
+ },
+ {
+  "id": "q15",
+  "heading": "To Execute A Shell Script",
+  "parentHeading": null,
+  "content": "To execute a shell script we have to give ./greater.sh"
+ },
+ {
+  "id": "q16",
+  "heading": "To Run A Shell Script in Background",
+  "parentHeading": null,
+  "content": "To run a shell script in the background, we can use the ampersand\n(&) symbol.\n\nFor example:\n\n./greater.sh &\n\nHere, the & symbol runs the shell script in the background, allowing us\nto continue using the terminal without waiting for the script to\ncomplete.\n\nIf we want to bring a background job to the foreground, we can use the\nfg command.\n\nfg\n\nThe fg command brings the most recent background job back to the\nforeground.\n\nApart from this, I have also worked with commands such as:\n\n- sed -- A stream editor used to search, substitute, and edit text in\n a file.\n\n- awk -- A powerful text-processing tool used to search, filter, and\n process data column by column."
+ },
+ {
+  "id": "q17",
+  "heading": "To Run A Shell Script In Debug",
+  "parentHeading": null,
+  "content": "sh -x greater.sh"
+ },
+ {
+  "id": "q18",
+  "heading": "What Is Nohup",
+  "parentHeading": null,
+  "content": "nohup stands for no-hangup,\n\nwhen we use no-hangup the script will keep running\n\non the server, even if the terminal gets disconnected\n\nnohup ./greater.sh &"
+ },
+ {
+  "id": "q19",
+  "heading": "How Will You Find The Memory Utilization In Unix",
+  "parentHeading": null,
+  "content": "To find the memory utilization in Unix, we can use the top command.\n\nThe top command stands for Table of Processes. It displays real-time\ninformation about the running processes in the system.\n\nIt shows details such as:\n\n- PID (Process ID)\n\n- User\n\n- CPU % (CPU utilization)\n\n- Memory % (Memory utilization)\n\n- Time (CPU time used by the process)\n\nUsing the top command, we can monitor the system's memory utilization\nand identify processes that are consuming high CPU or memory resources."
+ },
+ {
+  "id": "q20",
+  "heading": "How Will Find the List Of Running Process",
+  "parentHeading": null,
+  "content": "To find the list of running processes, we can use the ps command.\n\nFor more detailed information about all running processes, we can use:\n\nps -ef\n\nLet me explain this command.\n\n- -e is used to select all running processes.\n\n- -f is used to display the processes in full-format listing,\n which includes details such as the user, PID, parent PID, start\n time, and command.\n\nIf I want to find a specific process, such as a Java process, I can use:\n\nps -ef \\| grep 'java'\n\nHere, I am using the grep command to filter the output and display only\nthe processes that contain the word java.\n\nIf I want to terminate a process, I can use the kill command.\n\nFor normal termination, I can use:\n\nkill -2 PID\n\nHere, -2 sends the SIGINT (Interrupt) signal, allowing the process\nto terminate gracefully.\n\nFor forceful termination, I can use:\n\nkill -9 PID\n\nHere, -9 sends the SIGKILL signal, which immediately terminates the\nprocess.\n\nSo, these are the commands I have used to view running processes, search\nfor a specific process, and terminate a process in Unix."
+ },
+ {
+  "id": "q21",
+  "heading": "How Will You Transfer Files In Unix",
+  "parentHeading": null,
+  "content": "In Unix, we can use FTP, SFTP, or SCP to transfer files\nbetween servers.\n\n### FTP (File Transfer Protocol)\n\nFTP stands for File Transfer Protocol. When two servers need to\nexchange files, they can use the File Transfer Protocol.\n\nSome commonly used FTP commands are:\n\n- get -- Downloads a file from the remote server.\n\n- mget -- Downloads multiple files from the remote server.\n\n- put -- Uploads a file to the remote server.\n\n- mput -- Uploads multiple files to the remote server.\n\nFor example:\n\nftp user_name@1.1.1.12\n\npassword: test123\n\nftp\\> put cust_data.txt\n\nbye\n\nIn this example, I connect to the FTP server, provide the password,\nupload the file cust_data.txt using the put command, and then exit the\nFTP session using bye.\n\n### SFTP (Secure File Transfer Protocol)\n\nSFTP stands for Secure File Transfer Protocol. When two servers need\nto exchange files securely, we use SFTP.\n\nIn our project, SFTP was configured as passwordless authentication,\nso files could be transferred securely without entering a password each\ntime.\n\n### SCP (Secure Copy)\n\nSCP stands for Secure Copy.\n\nSCP is used to copy files from the local machine to a remote machine\n(or between systems) over a secure connection. Unlike FTP, it simply\ntransfers the file and exits without opening an interactive session.\n\nIf password less authentication is not configured, SCP prompts for a\npassword before transferring the file.\n\nSo, these are the file transfer methods I have used in Unix: FTP,\nSFTP, and SCP, depending on the project requirement."
+ }
+]

@@ -1,0 +1,50 @@
+[
+ {
+  "id": "q1",
+  "heading": "Autosys",
+  "parentHeading": null,
+  "content": "Autosys is a tool used to schedule, monitor, and report on jobs.\n\nIf we just used crontab, it would get really difficult to monitor jobs\nacross multiple servers. But with Autosys, we can monitor jobs across\nmultiple servers all from a single tool --- that's why we use it.\n\nThere are a few types of Autosys jobs ---\n\n- Command Job\n\n- Box Job\n\n- File Watcher Job.\n\nWe can trigger jobs by date and time, file arrival, and other criteria.\n\n- Time -- Job will run at a particular time.\n\n- File -- Job will run based on the arrival of file.\n\n- Job -- Job will run based on the SU of predecessor job."
+ },
+ {
+  "id": "q2",
+  "heading": "What are the types of jobs in Autosys?",
+  "parentHeading": "Autosys",
+  "content": "Command Job, denoted by 'c', is the most common type\n\nIt just runs a command or script on a specified machine.\n\nFile Watcher Job, denoted 'f'\n\nMonitors for a file to arrive, and once it does, the job kicks off.\n\nBox Job, denoted 'b', is more like a container\n\nIt groups multiple jobs together so you can manage them as a single\nunit."
+ },
+ {
+  "id": "q3",
+  "heading": "What is JIL file in AUTOSYS?",
+  "parentHeading": "Autosys",
+  "content": "JIL stands for Job Information Language.\n\nJobs are defined using JIL.\n\nIt's basically how you tell Autosys what job to run, when to run it,\nand other related details"
+ },
+ {
+  "id": "q4",
+  "heading": "The attributes of AUTOSYS",
+  "parentHeading": "Autosys",
+  "content": "insert_job: my_job\n\njob_type: c\n\ncommand: /home/app/scripts/run.sh\n\nmachine: server01\n\nowner: appuser\n\ndescription: \"Daily data load job\"\n\ndate_conditions: y\n\nstart_times: \"08:00\"\n\nstd_out_file: /logs/my_job.out\n\nstd_err_file: /logs/my_job.err\n\nalarm_if_fail: y"
+ },
+ {
+  "id": "q5",
+  "heading": "How to view the job status in AUTOSYS",
+  "parentHeading": "Autosys",
+  "content": "The \"autorep\" command is the most common way to check the status of\njobs.\n\nSyntax:\n\nTo view Single Job Status:\n\nautorep -j job_name\n\nTo view Multiple Job Status:\n\nautorep -j job_name_1,job_name_2\n\nTo view All Jobs Status:\n\nautorep -J ALL"
+ },
+ {
+  "id": "q6",
+  "heading": "What are different types of jobs status-?",
+  "parentHeading": "Autosys",
+  "content": "1. Success\n\n2. Running\n\n3. Failure\n\n4. Terminated\n\n5. on hold\n\n6. off hold\n\n7. on ice\n\n8. off ice\n\n9. Active status\n\n10. Inactive"
+ },
+ {
+  "id": "q7",
+  "heading": "How to change job status and ONLHOLD, ONICE in AUTOSYS",
+  "parentHeading": "Autosys",
+  "content": "Changing the status of a job in AUTOSYS is using the \"sendevent\"\ncommand. You can put jobs on hold, take them off hold, put them on ice,\nor take them off ice.\n\nExample:\n\nsendevent -E CHANGE_STATUS -s SUCCESS -J job_name\n\nsendevent -E JOB_ON_HOLD -J job_name\n\nKill a job\n\nsendevent -E KILL JOB -J JOB_NAME"
+ },
+ {
+  "id": "q8",
+  "heading": "What is difference between ONHOLD and ONICE?",
+  "parentHeading": null,
+  "content": "On-hold and off-hold: If job status changed to on-hold, dependent job\nwill not run and current job will not run-on scheduled time.\n\nIf the on-hold changed to off-hold job will run immediately.\n\nOn-ice and off-ice: If job status changed to on-ice, dependent job will\nrun and current job will not run-on scheduled time.\n\nIf the on-ice job changed to off-ice, job will not run immediately it\nwill wait for next scheduled time."
+ }
+]

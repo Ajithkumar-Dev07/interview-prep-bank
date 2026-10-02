@@ -1,0 +1,95 @@
+{
+ "version": 1,
+ "topics": [
+  {
+   "id": "self-introduction",
+   "label": "Self-Introduction",
+   "file": "topics/self-introduction.json"
+  },
+  {
+   "id": "roles-responsibilities",
+   "label": "Roles & Responsibilities",
+   "file": "topics/roles-responsibilities.json"
+  },
+  {
+   "id": "process-sla-ticket-handling",
+   "label": "Process, SLA & Ticket Handling",
+   "file": "topics/process-sla-ticket-handling.json"
+  },
+  {
+   "id": "change-problem-management",
+   "label": "Change & Problem Management",
+   "file": "topics/change-problem-management.json"
+  },
+  {
+   "id": "automation-scripting",
+   "label": "Automation & Scripting",
+   "file": "topics/automation-scripting.json"
+  },
+  {
+   "id": "monitoring-tools",
+   "label": "Monitoring Tools",
+   "file": "topics/monitoring-tools.json"
+  },
+  {
+   "id": "project-details",
+   "label": "Project Details",
+   "file": "topics/project-details.json"
+  },
+  {
+   "id": "deployment-change-management",
+   "label": "Deployment & Change Management",
+   "file": "topics/deployment-change-management.json"
+  },
+  {
+   "id": "autosys",
+   "label": "Autosys",
+   "file": "topics/autosys.json"
+  },
+  {
+   "id": "sql",
+   "label": "SQL",
+   "file": "topics/sql.json"
+  },
+  {
+   "id": "unix",
+   "label": "Unix",
+   "file": "topics/unix.json"
+  },
+  {
+   "id": "pl-sql",
+   "label": "PL/SQL",
+   "file": "topics/pl-sql.json"
+  },
+  {
+   "id": "api-postman",
+   "label": "API & Postman",
+   "file": "topics/api-postman.json"
+  },
+  {
+   "id": "git-github",
+   "label": "Git & GitHub",
+   "file": "topics/git-github.json"
+  },
+  {
+   "id": "aws-cloud",
+   "label": "AWS Cloud",
+   "file": "topics/aws-cloud.json"
+  },
+  {
+   "id": "general-interview-questions",
+   "label": "General Interview Questions",
+   "file": "topics/general-interview-questions.json"
+  },
+  {
+   "id": "hr-questions",
+   "label": "HR Questions",
+   "file": "topics/hr-questions.json"
+  },
+  {
+   "id": "scenario-based-answers",
+   "label": "Scenario-Based Answers",
+   "file": "topics/scenario-based-answers.json"
+  }
+ ]
+}

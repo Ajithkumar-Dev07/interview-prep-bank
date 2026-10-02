@@ -1,0 +1,50 @@
+[
+ {
+  "id": "q1",
+  "heading": "What is Git and why do we use it?",
+  "parentHeading": null,
+  "content": "Git is a distributed version control system that tracks every change\nmade to code over time and lets multiple developers work on the same\nproject without overwriting each other's work."
+ },
+ {
+  "id": "q2",
+  "heading": "Explain about the Git vs GitHub?",
+  "parentHeading": null,
+  "content": "•Git = CLI-based, local tool on your machine\n\n•GitHub = UI-based, cloud platform that hosts Git repositories so the\nteam can collaborate remotely\n\nWe work locally with Git (add, commit), then push to GitHub, or\npull/clone from GitHub."
+ },
+ {
+  "id": "q3",
+  "heading": "Why Git matters in my banking project?",
+  "parentHeading": null,
+  "content": "Our development team uses Git to manage the code for modules like\nAccounts, Cards, Loans, and Payments. If a deployment causes a\nproduction issue, Git lets the team quickly identify the problematic\nchange and revert to a previous stable version --- critical in a banking\nenvironment where downtime directly affects customers.\n\nAs a Production Support Engineer, I use Git to check what recently\nchanged during an incident (git log, git diff) and to speak the same\nlanguage as developers during release and Change Management discussions."
+ },
+ {
+  "id": "q4",
+  "heading": "Commands --- Setup",
+  "parentHeading": "Why Git matters in my banking project?",
+  "content": "• git --version --- check installed version\n\n• git config --global user.name \"Afsa\" / user.email --- sets identity\nfor commits\n\n• git config --list --- verify configuration(you make is tagged with\nyour name and email --- similar to how every ticket in ServiceNow is\ntagged with the engineer who worked on it.)"
+ },
+ {
+  "id": "q5",
+  "heading": "Commands --- Tracking changes",
+  "parentHeading": "Why Git matters in my banking project?",
+  "content": "• git init --- starts version tracking in a folder (Initializes a new,\nempty Git repository in a folder. for example, if the development team\nstarts a brand-new module for our banking app)\n\n• git add filename.txt / git add . --- stages changes for commit\n\n• git commit -m \"message\" --- saves staged changes with a description\n(e.g., \"Fixed OTP delivery delay\")\n\n• git status --- shows current state: changed, staged, untracked files\n\n• git diff --- shows exact line-by-line changes vs. last commit\n\n• git log / git log --oneline --- shows commit history --- useful to\ncheck what changed after a release. (Shows the full history of commits\n--- who changed what and when. If there's a production issue after a\nrelease)"
+ },
+ {
+  "id": "q6",
+  "heading": "Commands --- Branching",
+  "parentHeading": "Why Git matters in my banking project?",
+  "content": "• git branch icici-loan / git branch --- creates/lists branches (e.g.,\nseparate branch for Loans feature)\n\n• git switch icici-loan --- switches to that branch(e.g another module\ncreated In bank application)\n\n• git merge icici-loan --- merges tested changes back into main branch\n--- same idea as going live in production"
+ },
+ {
+  "id": "q7",
+  "heading": "Commands --- GitHub (remote)",
+  "parentHeading": "Why Git matters in my banking project?",
+  "content": "• git clone \\<url\\> --- downloads an existing\nrepository(Downloads/copies an entire existing repository from GitHub\nonto your local machine.)\n\n• git push origin main --- uploads local commits to GitHub\n\n• git pull origin main --- downloads latest changes from GitHub"
+ },
+ {
+  "id": "q8",
+  "heading": "Example of an issue you faced involving Git?",
+  "parentHeading": null,
+  "content": "Yes --- there was an incident where customers started reporting that the\nloan payoff amount shown on the dashboard was incorrect, right after a\nrelease had gone out that morning.\n\nSince this happened soon after a deployment, my first step was to check\nwith the development team what had changed. I asked them to show me the\ngit log for that release, so we could see the recent commits made to the\nLoans module.\n\nThis helped us confirm that a change had indeed gone in the previous day\nrelated to loan interest calculation logic."
+ }
+]

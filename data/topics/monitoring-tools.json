@@ -1,0 +1,14 @@
+[
+ {
+  "id": "q1",
+  "heading": "What Is the Monitoring Tool Used / How Many Number Of Servers / How Will You Monitor Your Application",
+  "parentHeading": null,
+  "content": "We are using Dynatrace, we have configured Dynatrace to capture\n\nDatabase health, application health, UNIX server health, disk usage, CPU\nusage and tablespace usage.\n\n1\\) Database health (we have around 166 production database), if any\ndatabase is slow or down it will show us in red/amber colour.\n\n2\\) Application health, we have 101 applications like Dynatrace Will\nshow the application status each of the application.\n\n3\\) We have also configured to see the Unix server, health (we have 22\nUnix servers)\n\nIt also shows the CPU usage, if there is spike in memory, we get alerts\nin Dynatrace.\n\n5\\) it shows the disk usage alert, if the disk usage is more than 80%.\n\n6\\) it shows the tablespace alert, if the tablespace is more than 70%.\n\nWe get these alerts via email, and we can also check the dashboard\ndirectly.\n\nRight now, Dynatrace is only configured on production, but there are\nplans to extend it to UAT as well."
+ },
+ {
+  "id": "q2",
+  "heading": "How To Troubleshoot an application",
+  "parentHeading": null,
+  "content": "If an application isn't working, I follow a set process.\n\nFirst, I check whether the application server itself is up and running\n--- if it's down, I raise a P1 ticket and kick off the P1 flow, which\nmeans starting a bridge call and pulling in the relevant team, along\nwith sending internal and external communication.\n\nFor this, I use the ping command --- ping the IP address.\n\nNext, I check if the database server is up --- I try connecting through\nSQL Developer. If that doesn't connect, I check whether the listener\nprocess is running for that database.\n\nIf the server or hostname isn't responding at all, I check for network\nissues using the traceroute command, which helps me pinpoint exactly\nwhere the problem is on the network side.\n\nIf I do find a network issue, I raise a ticket with the network admin\nteam.\n\nIf the server is active and running, I use the uptime command to check\nhow long it's been up. Then I check if the application processes are\nactually running, using ps -ef.\n\nIf I want to check a specific process, I'd do something like ps -ef \\|\ngrep 'tomcat', for example.\n\nAfter that, I check the application logs --- something like daily\nlog/process_name.log, or Catalina.log. In those logs, I look for any\nerror codes or error messages, using grep to search through them.\n\nWe maintain a set of standard error codes --- 400 to 499 is client-side\nerrors, and 500 to 599 is server-side errors.\n\nWe have a KEDB document to find the solution and fix the issue directly.\nAnd if it's something new, we go through root cause analysis and come\nup with a permanent fix."
+ }
+]

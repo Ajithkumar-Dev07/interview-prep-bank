@@ -1,0 +1,44 @@
+[
+ {
+  "id": "q1",
+  "heading": "What is EC2? (Elastic Compute Cloud)",
+  "parentHeading": null,
+  "content": "EC2 is a virtual server rented from AWS --- install an OS, run\napplications, host websites.\n\nEc2 means Elastic cloud compute. 'Elastic' means I can scale up or\ndown anytime. I connect to it using PuTTY over SSH, using the server's\nIP address, which we document in Confluence. Our Java Spring Boot\napplication runs on an EC2 instance.\n\nKey terms:\n\nInstance (the virtual server)\n\nAMI (template to launch an instance)\n\nInstance type (defines CPU/memory)\n\nSecurity Group (acts as a firewall), Key pair (for SSH login)."
+ },
+ {
+  "id": "q2",
+  "heading": "What is RDS? (Relational Database Service)",
+  "parentHeading": null,
+  "content": "RDS is a managed database service --- supports MySQL, Oracle,\nPostgreSQL, and others. AWS handles patching, backups, and failover so I\ndon't have to manage the DB server manually.\n\nTo connect to our MySQL RDS instance from the Unix server: mysql -h\nfhb-db.chook86g6d9y.ap-south-1.rds.amazonaws.com -P 3306 -u admin -p.\n\nIn our schema, one customer has multiple accounts (1:N), and one account\nhas multiple transactions (1:N)."
+ },
+ {
+  "id": "q3",
+  "heading": "What is S3? (Simple Storage Service)",
+  "parentHeading": null,
+  "content": "S3 is object storage --- files are stored as objects inside buckets.\n\nWe use it to store customer statements, while regular transactional data\nstays in the database tables --- larger, less frequently accessed data\ngets offloaded to S3.\n\n- To upload: aws s3 cp ajith.txt s3://fhb-statements/ajith.txt.\n\n- To download: aws s3 cp s3://fhb-statements/vijay.txt vijay.txt."
+ },
+ {
+  "id": "q4",
+  "heading": "Explain about CloudWatch? (Logging & Monitoring)",
+  "parentHeading": null,
+  "content": "CloudWatch monitors AWS resources --- collects metrics, logs, and\nevents.\n\nDashboards track CPU, disk, and memory against thresholds, from a single\nserver up to a large fleet.\n\nFor live logs, I use tail -f application.log on the server, or grep to\nfilter.\n\nIn the browser, I'd go to CloudWatch → Log groups → fhb-app-logs → log\nstream fhb-app-server → 'Start tailing', which gives the same live\ndata without needing PuTTY.\n\nCloudWatch agent needs to be installed on the EC2 instance to ship\nlogs and metrics."
+ },
+ {
+  "id": "q5",
+  "heading": "What is IAM?",
+  "parentHeading": null,
+  "content": "IAM stands for Identity and Access Management --- it manages users,\nroles, and permissions, controlling who can access what within AWS.\n\nAccess Control → Defining and enforcing what resources each identity\ncan access.\n\nAuthentication & Authorization → Authentication confirms who you\nare (e.g., password, MFA), while authorization decides what you can\ndo (e.g., read/write permissions).\n\nIt is not a monitoring tool --- Dynatrace and Splunk are our actual\nmonitoring and logging tools."
+ },
+ {
+  "id": "q6",
+  "heading": "The API layer",
+  "parentHeading": null,
+  "content": "Our Java developers build REST APIs as the layer between the UI and the\ndatabase --- the frontend calls the API, and the API talks to the\ndatabase.\n\nI use Postman to test these APIs directly --- checking response codes\nand payloads --- to figure out if an issue is happening at the\napplication layer or further down in the integration."
+ },
+ {
+  "id": "q7",
+  "heading": "Application hosting summary",
+  "parentHeading": null,
+  "content": "Our application is a Java Spring Boot application, hosted on AWS ---\nrunning on Unix-based EC2 instances, backed by MySQL RDS, with\nstatements stored in S3, and monitored through CloudWatch, along with\nDynatrace and Splunk."
+ }
+]

@@ -1,0 +1,14 @@
+[
+ {
+  "id": "q1",
+  "heading": "What Are Automation Used",
+  "parentHeading": null,
+  "content": "Yes, I've done some automation using shell scripting, mainly to handle\nspace issues.\n\nWe built automation to move files from the data directory to the archive\ndirectory --- specifically files older than 2 weeks. So anything older\nthan 2 weeks automatically gets moved into archive.\n\nThen, after 8 months, those archived files get moved further into a\nbackup server using SFTP, in a zipped format.\n\nFor this, I used shell scripting --- I used the find command to identify\nlog files older than 14 days, then used the tar command to compress\nthem, moved them into the archive directory, and used SFTP to send them\nto the remote server.\n\nI scheduled this whole thing through crontab, to run every day at 11\no'clock --- that's 0 11"
+ },
+ {
+  "id": "q2",
+  "heading": "Automation 2",
+  "parentHeading": null,
+  "content": "I also built another automation to send a report of long-running jobs\nthrough email.\n\nWe collect long-running jobs using the top command and ps -ef, and from\nthat we identify processes that have been running for more than 3 days.\nWe take those process names and send them out in a mail to our internal\nteam.\n\nPs basically stands for process --- it's like Task Manager in Windows.\nIf I just run ps without any options, it shows me the processes running\nin the current terminal.\n\nIf I run ps -ef, it lists everything, and every process has its own\nprocess ID.\n\nFor this automation, I used ps -ef along with the top command, and\nthere's a utility called mailx in Unix that I used to actually send out\nthe emails.\n\nI combined mailx with the ps -ef and top output to send this list to the\ndistribution list, and scheduled the whole thing through crontab."
+ }
+]

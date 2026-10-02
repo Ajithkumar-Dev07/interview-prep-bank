@@ -1,0 +1,110 @@
+[
+ {
+  "id": "q1",
+  "heading": "Delete Vs Truncate",
+  "parentHeading": null,
+  "content": "Delete and Truncate are both used to remove records from a table, but\nthey work differently.\n\nFirst, Delete is a DML statement, whereas Truncate is a DDL statement.\n\nWith Delete, I can use a WHERE clause to remove specific rows --- for\nexample, DELETE FROM employee WHERE employee id = 1.\n\nBut with Truncate, I cannot use a WHERE clause; it always removes all\nrows.\n\nSecond, Delete allows me to roll back the transaction if needed, while\nTruncate is auto‑commit and cannot be rolled back."
+ },
+ {
+  "id": "q2",
+  "heading": "Delete Vs Truncate Vs Drop",
+  "parentHeading": null,
+  "content": "Delete, Truncate, and Drop are all used to remove data, but they work\ndifferently.\n\nDelete is a DML statement, and I can use a WHERE clause to remove\nspecific rows. For example: DELETE FROM employee WHERE employee id = 1.\n\nTruncate is a DDL statement, and it removes all rows from the table but\nthe table structure remains same. The syntax is: TRUNCATE TABLE\ntable_name\n\nDrop is also a DDL statement, it removes both the data and table\nstructure from the database completely. The syntax is: DROP TABLE\ntable_name."
+ },
+ {
+  "id": "q3",
+  "heading": "What Are Constraints",
+  "parentHeading": null,
+  "content": "Constraints are used to ensure data integrity in a table. There are\ndifferent types of constraints such as Not Null, Unique, Primary Key,\nForeign Key, and Check.\n\nThe Not Null constraint will not allow null values. For example, in\nan employee table, the gender column cannot be null.\n\nThe Unique constraint will not allow duplicate values. For instance,\npassport numbers must be unique and cannot be duplicated.\n\nThe Primary Key constraint will not allow nulls or duplicates. For\nexample, in the employee table, emp_id cannot be null and it cannot have\nduplicates.\n\nA Foreign Key is used to refer to another table, creating a\nparent‑child relationship. For example, we cannot have a dept_id in\nthe employee table that does not exist in the department table.\n\nFinally, the Check constraint is used to enforce business logic. For\nexample, in the employee table, salary cannot be less than zero.\n\nSo overall, constraints help maintain accuracy and consistency of the\ndata in the database."
+ },
+ {
+  "id": "q4",
+  "heading": "Joins",
+  "parentHeading": null,
+  "content": "Joins are used to retrieve data from two or more tables, and there are\ndifferent types of joins such as\n\n- Inner Join\n\n- Cross Join\n\n- Self-Join, and\n\n- Outer Joins, in outer joins we have Left Outer, Right Outer, and\n Full Outer Join.\n\nAn Inner Join is used to find the common records between two tables,\nand it's also called an Equi‑Join.\n\nA Cross Join, also known as a Cartesian Product, each row in the\nfirst table joins with every rows in the second table. For example, if\ntable A has 4 records and table B has 3 records, the output of a Cross\nJoin will be 12 records. In a Cross Join, no WHERE clause is used.\n\nA Self Join is used when we need to join the same table with itself.\nFor example, if we want to get the manager's name from the employee\ntable, we can use a Self-Join.\n\nComing to Outer Joins:\n\nA Left Outer Join will show all the records from the left table\nalong with the matched records between both tables. Any unmatched\nrecords from the right table will appear as null.\n\nA Right Outer Join will show all the records from the right table\nalong with the matched records between both tables. Any unmatched\nrecords from the left table will appear as null.\n\nA Full Outer Join is a combination of both left and right joins. It\nshows the matched records from both tables as well as the unmatched\nrecords from each side, with nulls displayed on the opposite side where\nthere is no match."
+ },
+ {
+  "id": "q5",
+  "heading": "Using Index",
+  "parentHeading": null,
+  "content": "So, Index is a database object used as a performance tuning measure to\nimprove query performance. It works similar to the index of a book,\nwhere you can quickly navigate to a topic instead of scanning every\npage.\n\nFrequently used columns in the WHERE clause are the best candidates for\ncreating an index.\n\nThere are different types of indexes, B‑Tree and Bitmap index.\n\nB‑Tree index is the default type and is typically used for\nhigh‑cardinality columns, meaning columns with a large number of\ndistinct values.\n\nA Bitmap index, is used for low‑cardinality columns, with few distinct\nvalues.\n\nThe syntax for creating an index is:\n\nCREATE INDEX index_name ON table(column_name);"
+ },
+ {
+  "id": "q6",
+  "heading": "View",
+  "parentHeading": null,
+  "content": "A view is used to display a subset of data from a table. It doesn't\nstore data physically; instead, it just runs the underlying query and\nshows the result.\n\nThere are different types of views --- simple, complex, and\nmaterialized.\n\nA simple view is created on a single table, and we can perform DML\noperations like insert, update, and delete on it.\n\nA complex view is created on multiple tables, and in that case, we\ncannot perform DML operations.\n\nUnlike a regular view, a materialized view actually stores data\nphysically. To keep it updated, we use the DBMS_MVIEW package to refresh\nthe materialized view."
+ },
+ {
+  "id": "q7",
+  "heading": "Where Vs Having",
+  "parentHeading": null,
+  "content": "WHERE clause is used to filter data directly from the base table.\n\nFor example: SELECT FROM employee WHERE salary = 100;.\n\nHAVING clause is used to filter data after the GROUP BY expression.\n\nFor example- SELECT COUNT (1), emp_id FROM employee GROUP BY emp_id\nHAVING COUNT (1) \\> 1;.\n\nThe main difference is that WHERE filters rows before grouping, while\nHAVING filters groups after the aggregation."
+ },
+ {
+  "id": "q8",
+  "heading": "Union And Union All",
+  "parentHeading": null,
+  "content": "Union and Union All are both set operators.\n\nUnion operator will not display duplicate values, whereas the Union All\noperator will include duplicates.\n\nBecause Union All doesn't check for duplicates, so it is faster compared\nto Union.\n\nSYNTAX:\n\nSELECT column1, column2 FROM table1\n\nUNION\n\nSELECT column1, column2 FROM table2;\n\nSELECT column1, column2 FROM table1\n\nUNION ALL\n\nSELECT column1, column2 FROM table2;"
+ },
+ {
+  "id": "q9",
+  "heading": "DIFFERENCE BETWEEN SUBSTR AND INSTR",
+  "parentHeading": null,
+  "content": "Difference between SUBSTR and INSTR is that SUBSTR is used to extract a\nportion of a string, while INSTR is used to find the position of a\nsubstring within a string.\n\nFor example, SUBSTR allows me to take a part of a string starting from a\nspecific position and length. If I have the word 'Employee', using\nSUBSTR ('Employee', 1, 3) will return 'Emp'.\n\nComing to INSTR returns the numeric position of a substring. For\ninstance, INSTR ('Employee', 'p') will return 3, because the letter\n'p' is at the third position."
+ },
+ {
+  "id": "q10",
+  "heading": "DIFFERENCE BETWEEN DML AND DDL",
+  "parentHeading": null,
+  "content": "Difference between DML and DDL is that DML stands for Data Manipulation\nLanguage, and it's used to work with the data inside tables. Commands\nlike INSERT, UPDATE, and DELETE comes under DML.\n\nDDL stands for Data Definition Language, and it's used to modify the\nstructure of database objects. Commands like CREATE, ALTER, DROP, and\nTRUNCATE are part of DDL."
+ },
+ {
+  "id": "q11",
+  "heading": "Delete Duplicates or Remove Duplicates",
+  "parentHeading": null,
+  "content": "QUERY: delete from employee where rowid not in (Select max(rowid) from\nemployee group by emp_id);\n\nHere i am using a sub-query, In the inner query, i am doing a group by\non emp_id, and in the outer query i am removing the records which is not\nin the inner query.\n\nThis will help us to remove the duplicates."
+ },
+ {
+  "id": "q12",
+  "heading": "2nd Highest Salary",
+  "parentHeading": null,
+  "content": "QUERY:\n\nselect emp_id, emp_name from (select dense_rank () over (order by\nsalary desc) as rnk,\n\ne.emp_id, e.emp_name from employee) where rnk=2;\n\nHere I am using a sub-query, In the inner query I am using analytical\nfunction called dense rank and doing an order by salary descending and\nin the outer query I am filtering the records which has rank=2\n\nThis will help us to find the 2nd highest salary."
+ },
+ {
+  "id": "q13",
+  "heading": "Can you write a query to display the dept_name for each employee",
+  "parentHeading": "Join Employee/ Dept Table Or Order/Order Detail Or Customer/Customer Detail",
+  "content": "SQL Implict syntax:\n\nselect e.emp_id, e.emp_name,d.dept_id,d.department_name from employee e\n,departments d\n\nwhere e.dept_id=d.dept_id;\n\nSQL Ansi syntax:\n\nselect e.emp_id, e.emp_name, d.dept_id, d.department_name from employee\ne inner join departments d on e.dept_id=d.dept_id;\n\nThe first one is IMPLICT syntax and second is ANSI syntax\n\nHere i am using joins to retrieve the data from employee and department\ntable.\n\nAnd i am using inner join, which is used to find the matched row between\ntwo tables, it's also called as Equi-join."
+ },
+ {
+  "id": "q14",
+  "heading": "Show Duplicates",
+  "parentHeading": null,
+  "content": "QUERY: select emp_id, count (1) from employee group by emp_id having\ncount (1)\\>1;\n\nHere i am using group by expression and doing group by on emp_id and\nusing having clause to filter the records after the group by expression.\n\nThis helps us to show the duplicates."
+ },
+ {
+  "id": "q15",
+  "heading": "Create One Table from Another Table Or Create A Backup Table",
+  "parentHeading": null,
+  "content": "To Create One Table from Another Table Or Create A Backup Table\n\nWith data:\n\ncreate table emp_backup as select from emp;\n\nWithout data:\n\ncreate table emp_backup as select from emp where 1=0;"
+ },
+ {
+  "id": "q16",
+  "heading": "Difference Between NVL/Nvl2/COALESCE",
+  "parentHeading": null,
+  "content": "NVL, NVL2, and COALESCE are functions used for handling null values.\n\nNVL function is used to replace null with some other value.\n\nFor example: SELECT NVL(commission, 0) FROM employee;\n\nHere, whenever the commission is null, it will be replaced with zero.\n\nNVL2 is used to replace both null and non null values with some other\nvalue, it has three arguments if the value is null it will replace with\n3rd arguments or if it is not null it will replace with the 2 argument.\n\nFor example: SELECT NVL2(commission, 1, 0) FROM employee;\n\nIn this case, if commission is null, it will be replaced with zero, and\nif commission is not null, it will be replaced with one.\n\nCOALESCE is used to return the first non‑null value from a list of\ncolumns.\n\nFor example: SELECT COALESCE(address_line1, address_line2,\naddress_line3) FROM employee;\n\nHere, the first non‑null address value will be displayed."
+ },
+ {
+  "id": "q17",
+  "heading": "What Will Do If The Query Runs Slow Or Runs Longer",
+  "parentHeading": null,
+  "content": "First and foremost, thing I will check explain plan of the query.\n\n-- SQL statement execution plan I want to display\n\nEXPLAIN PLAN FOR SELECT FROM table WHERE condition;\n\nIt Display the execution plan then next command\n\nSELECT FROM TABLE(DBMS_XPLAN.DISPLAY());\n\nOr will enter key F10\n\nFrom the explain plan i will check if the query is using the index or\nnot, If not i will create an index for the table.\n\nIndex is a database object which used as a performance tuning measure to\nimprove the query performance.\n\nIndex is similar to a index of book, it is used for a faster navigation\nof a topic in the book.\n\nIn oracle there are different types of Index like\n\n- b-tree index\n\n- bit map index\n\n- b-tree index is the default index and it's used for high cardinality\n columns\n\n- bit map index is used for low cardinality columns\n\nSyntax of creating index is:\n\ncreate index index_name on table(column_name);\n\nI will check if the query is using IN operator, then if possible, I will\nreplace that with EXIST and see if the query runs faster or better.\n\nI will check if the query is using UNION operator, then if possible i\nwill replace that with UNION ALL and see if the query runs faster or\nbetter (without disturbing the functionality).\n\nIf the query uses any sub-query, then If possible i will replace the\nsub-query with joins and see if the query runs faster or better .\n\nif the query has any unwanted sort or if it's using any unwanted order\nby,I will try to remove see if the query runs faster or better ."
+ },
+ {
+  "id": "q18",
+  "heading": "Find The Manager Name For The Employees",
+  "parentHeading": null,
+  "content": "IMPLICT SYNTAX:\n\nSELECT e.EMP_ID, e.NAME AS EMPLOYEE_NAME, m.NAME AS MANAGER_NAME\n\nFROM EMPLOYEE e, EMPLOYEE m WHERE e.MANAGER_ID = m.EMP_ID(+);\n\nANSI SYNTAX:\n\nSELECT e.EMP_ID, e.NAME AS EMPLOYEE_NAME, m.NAME AS MANAGER_NAME\n\nFROM EMPLOYEE e JOIN EMPLOYEE m ON e.MANAGER_ID = m.EMP_ID;\n\nHere i am using self-join to join the same table and get the manager_id\nand manager_name.\n\nRank Vs Dense Rank Vs Row Number\n\nThe RANK () function processes each row and assigns a rank based on the\nspecified order. If there are duplicate values, the same rank is\nassigned to those rows, and the next rank number is skipped.\n\nThe DENSE_RANK() function is similar to the RANK() function. It also\nassigns the same rank to duplicate values, but it returns consecutive\nrank numbers without skipping any numbers.\n\nThe ROW_NUMBER() function assigns a unique number to every row. Unlike\nRANK() and DENSE_RANK(), it does not assign the same number to duplicate\nvalues. Even if multiple rows have the same value, each row gets a\ndifferent row number.\n\nFor example:\n\nIn the case of RANK(), if two students get the same marks, both students\nwill be assigned Rank 1, and the next student will be assigned Rank 3.\n\nRank 2 will be skipped.\n\nIn the case of DENSE_RANK(), if two students get the same marks, both\nstudents will be assigned Rank 1, and the next student will be assigned\nRank 2.\n\nHere, no rank numbers are skipped.\n\nIn the case of ROW_NUMBER(), if three students get the same marks, they\nwill be assigned Row Number 1, Row Number 2, and Row Number 3.\n\nThe numbering among those students is based on the order determined by\nthe query.\n\nHow will you extract data from a table into a file\n\nThere is a utility in oracle called spool, spool will allow us to\nextract data from a table as a flat file such as a .csv or .txt file.\n\nFirst, we set the line size and page size.\n\nSet line size 200\n\nSet page size 200\n\nSpool /home/arul/emp_salary.csv\n\nSelect emp_id \\|\\|',' \\|\\| emp_name\\|\\|',' \\|\\| emp_sal\\|\\|','\n\\|\\|emp_dept_id from employees;\\\nspool off;\n\nThe file /home/arul/emp_salary.csv will contain the extracted data like\n:\n\n1, Arul,10000,10\n\n2, Arun,20000,10\n\n3, Varun,20000,10\n\n4, Tarun,20000,10\n\nSo, this is how we can extract data from an Oracle table into a flat\nfile using the SPOOL utility.\n\nHow will you load data file into a table\n\nTo load a data file into a table, Oracle provides a utility called\nSQLLoader. SQLLoader allows us to load data from a flat file,\nsuch as a CSV file, into an Oracle table.\n\nFor example, let's we have the following data file:\n\n/home/arul/emp_salary.csv\n\n1, Arul,10000,10\n\n2, Arun,20000,20\n\n3, Varun,30000,30\n\n4, Tarun,40000,30\n\n5, Tara,30000,20\n\nTo load this data, we need to create a control file (.ctl).\n\nFor example:\n\nsalary_details.ctl\n\nQUERY:\n\nLOAD DATA\n\nINFILE '/home/arul/emp_salary.csv'\n\nINTO TABLE emp_salary_details\n\nFIELDS TERMINATED BY ','\n\n(\n\nemp_id,\n\nemp_name,\n\nsal,\n\ndept_id\n\n)\n\nAfter creating the control file, we execute the SQLLoader command:\n\nsqlldr username/password@database \\\\\n\nctl=/home/arul/salary_details.ctl \\\\\n\nbad=/home/arul/salary_details.bad \\\\\n\nlog=/home/arul/salary_details.log\n\nHere:\n\n- The CTL parameter specifies the path of the control file.\n\n- The BAD file stores the records that could not be loaded due to\n errors.\n\n- The LOG file contains the loading details and summary\n information.\n\nFor example, the log file may show:\n\nTotal number of rows loaded: 5\n\nTotal number of rows skipped: 2\n\nSo, this is how we can load data from a flat file into an Oracle table\nusing the SQLLoader utility."
+ }
+]

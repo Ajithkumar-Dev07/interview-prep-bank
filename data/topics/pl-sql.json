@@ -1,0 +1,32 @@
+[
+ {
+  "id": "q1",
+  "heading": "Procedure Vs Function",
+  "parentHeading": null,
+  "content": "Procedures and functions are both PL/SQL program units in Oracle.\n\nA function must always return a value. It can also be called from a\nSELECT statement.\n\nA procedure cannot be called from a SELECT statement. A procedure\nmay or may not return a value. It can accept parameters such as IN,\nOUT, and IN OUT.\n\n> The IN parameter is used to pass values into the procedure.\n>\n> The OUT parameter is used to get values from the procedure.\n>\n> The IN OUT parameter is used to pass values into the procedure and\n> return the modified values back to the calling program."
+ },
+ {
+  "id": "q2",
+  "heading": "Trigger",
+  "parentHeading": null,
+  "content": "A trigger is a PL/SQL object that is automatically fired whenever a DML\noperation like Insert, Update, or Delete takes place.\n\nTriggers are mainly used to capture audit or history data.\n\nThere are two types of triggers: row‑level triggers and statement‑level\ntriggers.\n\nA row‑level trigger fires for each row that is affected by the DML\noperation, while a statement‑level trigger fires once for the entire\ntransaction."
+ },
+ {
+  "id": "q3",
+  "heading": "Normalization",
+  "parentHeading": null,
+  "content": "Normalization is the process used to reduce data redundancy.\n\nIt's a technique for designing tables where the data is split across\nmultiple tables to make the structure more efficient.\n\nThere are different forms of normalization like 1NF,2NF,3NF. Among\nthese, Third Normal Form(3NF) is the most widely used.\n\nIn normalization, the idea is to split data into separate tables instead\nof keeping everything in one table.\n\nFor example, instead of storing department data along with employee data\nin the same table, we keep department information in a separate table."
+ },
+ {
+  "id": "q4",
+  "heading": "Cursor",
+  "parentHeading": null,
+  "content": "A cursor is a pointer that points to the result of a query. It is a kind\nof temporary work area that stores and processes the result of a query.\n\nPL/SQL has two types of cursors:\n\n- Implicit Cursor\n\n- Explicit Cursor\n\n### Implicit Cursor\n\nWhenever Oracle executes a DML statement such as INSERT, UPDATE,\nor DELETE, it automatically creates an implicit cursor.\n\nOracle internally manages the entire execution cycle of an implicit\ncursor, so we don't need to declare, open, fetch, or close it\nexplicitly.\n\n### Explicit Cursor\n\nAn explicit cursor is created by the user.\n\nExplicit cursors are defined by the programmer and provide more control\nover the result set of a query. They are mainly used when a query\nreturns multiple rows, allowing us to process one row at a time.\n\nThere are four steps to use an explicit cursor:\n\n1. Declare the Cursor -- Define the cursor and its associated\n SELECT query.\n\n2. Open the Cursor -- Execute the query and allocate memory for the\n result set.\n\n3. Fetch Data -- Retrieve the rows one at a time from the cursor.\n\n4. Close the Cursor -- Release the memory associated with the\n cursor.\n\nAn explicit cursor has four attributes:\n\n1. %ISOPEN -- Checks whether the cursor is open.\n\n2. %FOUND -- Returns TRUE if the last fetch retrieved a row.\n\n3. %NOTFOUND -- Returns TRUE if the last fetch did not retrieve a row.\n\n4. %ROWCOUNT -- Returns the number of rows fetched so far."
+ },
+ {
+  "id": "q5",
+  "heading": "Sample Function Vs Procedure Programs",
+  "parentHeading": null,
+  "content": "### Sample Function:\n\nThis is a simple function that accepts an employee ID as an IN\nparameter and returns the employee name.\n\nCREATE OR REPLACE FUNCTION get_emp_name(p_emp_id IN NUMBER)\n\nRETURN VARCHAR2\n\nIS\n\nv_emp_name EMP.EMP_NAME%TYPE;\n\nBEGIN\n\nSELECT EMP_NAME\n\nINTO v_emp_name\n\nFROM EMP\n\nWHERE EMP_ID = p_emp_id;\n\nRETURN v_emp_name;\n\nEXCEPTION\n\nWHEN NO_DATA_FOUND THEN\n\nRETURN 'No employee found';\n\nWHEN OTHERS THEN\n\nRETURN 'Error occurred';\n\nEND;\n\n/\n\nWe can call the function directly from a SELECT statement.\n\nSELECT get_emp_name(100) FROM dual; -- Dhoni\n\nSELECT get_emp_name(2000000) FROM dual; -- No employee found\n\nSELECT get_emp_name(10) FROM dual; -- Error occurred\n\nHere, if the employee ID exists, the function returns the employee name.\nIf no record is found, it returns 'No employee found'. If any\nother exception occurs, it returns 'Error occurred'.\n\n### Sample Procedure:\n\nThis is a simple procedure that accepts the employee ID as an IN\nparameter and returns the employee's name through an OUT parameter.\n\nCREATE OR REPLACE PROCEDURE PR_emp_name(\n\np_emp_id IN NUMBER,\n\np_emp_name OUT VARCHAR2\n\n)\n\nIS\n\nBEGIN\n\nSELECT EMP_NAME\n\nINTO p_emp_name\n\nFROM EMP\n\nWHERE EMP_ID = p_emp_id;\n\nEXCEPTION\n\nWHEN NO_DATA_FOUND THEN\n\np_emp_name := 'No employee found';\n\nWHEN OTHERS THEN\n\np_emp_name := 'Error occurred';\n\nEND;\n\n/\n\nIn this procedure, the employee ID is passed using the IN parameter,\nand the employee name is returned using the OUT parameter. If the\nemployee is not found, the procedure returns 'No employee found'.\nIf any other exception occurs, it returns 'Error occurred' through\nthe OUT parameter."
+ }
+]

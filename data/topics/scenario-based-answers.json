@@ -1,0 +1,104 @@
+[
+ {
+  "id": "q1",
+  "heading": "Q1: Walk me through a P1 you handled end to end.",
+  "parentHeading": "Scenario 1 --- Mount Point / P1 Batch Failure",
+  "content": "Sure. So this was during a night shift --- we suddenly started getting\naround 17 alerts from Dynatrace, all saying batch jobs were failing.\nSince it was hitting multiple jobs and clearly critical, I opened a P1\nright away.\n\nWhile I was opening the ticket, I logged into the Unix server in\nparallel and started going through the logs. That's when I found the\nactual cause --- the mount point where the process writes its logs had\nfilled up completely, 100%, and that's what was making every job on it\nfail.\n\nSince it was outside business hours, I started the bridge call\nimmediately and pulled in the on-call support team. I also sent out an\nemail to the distribution list letting everyone know a P1 was open,\nlisted the impacted jobs, and after checking with the team, gave a\n2-hour ETA.\n\nFor the immediate fix, I worked with the Linux team to free up space on\nthat mount point. Once that was done, I reran the failed jobs one by one\n--- had to be careful about the dependencies between them so I didn't\nrerun something out of order. Everything came back clean after that.\n\nThen, as a permanent fix, I got that mount point added as a monitoring\nparameter in our alerting --- so now we get notified at 75% full instead\nof waiting until it's completely full and jobs start failing. I closed\nit out with an update email covering both the temporary and the\npermanent fix."
+ },
+ {
+  "id": "q2",
+  "heading": "Q2: What's your process when a batch job fails at 2 AM?",
+  "parentHeading": "Scenario 1 --- Mount Point / P1 Batch Failure",
+  "content": "First thing is I check the alert source --- Dynatrace or Splunk --- to\nsee how many jobs are actually affected and whether it's isolated or\npart of a bigger pattern. If it's one job, I treat it as a regular\nincident and start working the logs. But if it's multiple critical jobs\nlike in that mount point case, I open a P1 immediately rather than\nwaiting to investigate further first.\n\nOnce the P1's open, I start the bridge call and pull in whoever's\non-call --- I check our Confluence on-call page for that. While the\nbridge is spinning up, I'm already in the Unix server pulling logs to\nfind the actual cause. I don't wait for the bridge to start\ntroubleshooting --- those happen in parallel.\n\nOnce I've identified the issue, I fix it, rerun the failed jobs\nrespecting their dependencies, and confirm everything's clean.\nThroughout this, I'm sending hourly updates to the distribution list so\nstakeholders know the status even if there's nothing new to report yet."
+ },
+ {
+  "id": "q3",
+  "heading": "Q3: How do you prevent the same issue from recurring?",
+  "parentHeading": "Scenario 1 --- Mount Point / P1 Batch Failure",
+  "content": "That's really where the permanent fix comes in, separate from the\nimmediate fix. In the mount point case, increasing the space that night\ngot the jobs running again, but it didn't stop it from filling up again\nnext month.\n\nSo the permanent fix was adding that mount point as a threshold-based\nalert --- 75% full --- so we get a heads-up before it becomes a P1 again\ninstead of after.\n\nMore broadly, if an incident like these repeats, it stops being treated\nas just an incident and becomes a Problem. We do a proper root cause\nanalysis --- we follow the 5-why method --- and if it needs a code or\ninfra change, we raise a Jira ticket, tag all the related incidents to\nit, and the fix goes through the normal SDLC and change management\nprocess before it's closed out.\n\nSo it's not just about closing the ticket --- it's about making sure\nI'm not doing the same 2 AM fix again three months later."
+ },
+ {
+  "id": "q4",
+  "heading": "Q1: Tell me about a time you found a data issue using SQL.",
+  "parentHeading": "Scenario 2 --- Transaction Data Mismatch",
+  "content": "This one wasn't reported to me --- I caught it myself while doing\nroutine data validation. I was running my usual SQL checks on the\ntransaction tables and noticed a mismatch --- some transaction records\ndidn't line up with what I'd expect based on the account data.\n\nI dug into it and traced it back to a batch timing issue --- one batch\nhad run before another batch it actually depended on had finished.\n\nSo it processed against incomplete data. Once I confirmed that with a\nfew more targeted queries, I coordinated with the application team to do\na corrected re-run of the batch in the right order, then went back and\nvalidated the data again with SQL to confirm everything was accurate.\n\nI think this one's a good example of catching something proactively\ninstead of waiting for a customer to report it.\""
+ },
+ {
+  "id": "q5",
+  "heading": "Q2: How do you validate that production data is correct?",
+  "parentHeading": "Scenario 2 --- Transaction Data Mismatch",
+  "content": "I usually go table by table depending on what I'm checking. For\nsomething like transaction data, I'll compare counts and sums between\nthe source and the downstream table, check for duplicates, and look at\ntimestamps to make sure batches ran in the right sequence.\n\nI write queries using joins, group by, and sometimes window functions\nlike ROW_NUMBER if I'm checking for duplicate or out-of-order records.\n\nIf something looks off, I don't just fix it --- I first confirm whether\nit's actually a data issue or just how the business logic is supposed\nto work, because not every mismatch is a bug.\n\nOnce I've confirmed it's genuinely wrong, I trace it back --- was it a\njob that failed, a dependency that didn't wait, a timing issue --- and\nonly then do I decide the fix, whether that's a manual correction or a\nbatch re-run."
+ },
+ {
+  "id": "q6",
+  "heading": "Q3: What's the difference between a symptom and a root cause?",
+  "parentHeading": "Scenario 2 --- Transaction Data Mismatch",
+  "content": "A symptom is what you actually see on the surface --- in this case, the\ntransaction data not matching.\n\nA root cause is why it happened in the first place --- which here was\nthe batch timing dependency issue, one job running before its\npredecessor had finished.\n\nIf I just fix the symptom --- manually correct that one mismatched\nrecord --- it'll happen again next time the batches run in the wrong\norder. Fixing the root cause means making sure the dependency is\nactually enforced, so the second batch physically can't start until the\nfirst one's done.\n\nThat's really the difference between an incident fix and a\nproblem-management fix --- one restores service, the other stops it from\nhappening again."
+ },
+ {
+  "id": "q7",
+  "heading": "Q1: Have you ever led a major incident bridge call? Walk me through it.",
+  "parentHeading": "Scenario 3 --- Online Banking Login Outage / Bridge Call",
+  "content": "Yes --- online banking login went down, which is about as\ncustomer-facing as it gets for a bank, so I opened it as a P1\nimmediately.\n\nThe first thing I did was start the bridge call. I pulled in the\napplication team first, since login failures usually point there, then\ninfrastructure right behind them in case it was server or network\nrelated, and I looped in my manager as well since it was customer-facing\nand leadership needed visibility.\n\nIf it had turned out to be a database issue I'd have pulled DBA in too,\nbut based on the initial symptoms, app and infra were the right first\ncall.\n\nOnce everyone was on, I coordinated between the teams while they worked\nin parallel --- app team checking the service logs, infra checking\nserver health. I sent hourly status updates to the distribution list the\nwhole time, even when there wasn't a breakthrough yet, just to keep\neveryone aligned on where we stood.\n\nFor the ETA, I didn't just guess --- I checked in with whichever team\nhad found the likely cause and asked for their honest estimate, then\ncommunicated that, and adjusted it if things changed.\n\nWe got it restored within SLA, and after that I documented the full RCA\nin Confluence --- what happened, what we did, and what we're doing to\nstop it recurring."
+ },
+ {
+  "id": "q8",
+  "heading": "Q2: How do you communicate during a customer-facing outage?",
+  "parentHeading": "Scenario 3 --- Online Banking Login Outage / Bridge Call",
+  "content": "Frequency and honesty, mainly. As soon as the P1 is opened, I send out\nan initial notification to the distribution list so everyone knows\nwe're aware and working it --- I don't wait until I have the full\npicture.\n\nAfter that, I send updates every hour, even if the update is just\n'still investigating with the app team, next update in an hour.'\nThat's better than silence, because silence makes people assume\nnothing's happening.\n\nI also make sure the updates have the actual impact --- which systems or\ncustomers are affected --- not just technical details, because different\npeople on that distribution list need different things: leadership wants\nbusiness impact, the technical teams want the specifics.\n\nOnce it's resolved, I send a final closure update with a short summary\nof what happened and what's being done to prevent it going forward."
+ },
+ {
+  "id": "q9",
+  "heading": "Q3: What goes into an RCA document?",
+  "parentHeading": "Scenario 3 --- Online Banking Login Outage / Bridge Call",
+  "content": "I write it up in Confluence, and it typically covers: what the issue was\nand its business impact, the timeline --- when it started, when we\nnoticed it, when it was resolved --- who was involved on the bridge,\nwhat the immediate fix was to restore service, and then the actual root\ncause once we've dug into it properly, usually using the 5-why\napproach.\n\nThen it covers the permanent fix --- what's being changed so this\ndoesn't happen again --- and if that needs code or infra changes, I\nlink the Jira ticket raised for it.\n\nI keep it factual and structured so anyone on the team, even someone who\nwasn't on the bridge call, can read it later and understand exactly\nwhat happened and why."
+ },
+ {
+  "id": "q10",
+  "heading": "Q1: What is job dependency in Autosys, and how do you troubleshoot it?",
+  "parentHeading": "Scenario 4 --- Autosys Dependency / Loan Interest Posting",
+  "content": "In Autosys, jobs often aren't standalone --- a job can be set to only\nstart once another job, its predecessor, has completed successfully.\nThat's a dependency. It's defined in the JIL, the Job Information\nLanguage, when the job's set up.\n\nWhen a job hasn't triggered and I suspect it's a dependency issue, I\nrun autorep -j on that job to check its current status, and I also check\nthe predecessor job's status.\n\nIf the predecessor is still running, failed, or stuck, that explains why\nthe dependent job never kicked off --- it's just waiting. Depending on\nthe situation, I'll either wait for the predecessor to finish\nnaturally, escalate if it's stuck, or if I've confirmed it's safe,\nforce the dependent job to run using sendevent.\n\nI always double check dependencies before forcing anything, though,\nbecause running things out of order on a banking batch can cause exactly\nthe kind of data mismatch I mentioned earlier."
+ },
+ {
+  "id": "q11",
+  "heading": "Q2: Tell me about a time a delayed job had a business impact.",
+  "parentHeading": "Scenario 4 --- Autosys Dependency / Loan Interest Posting",
+  "content": "The end-of-day Autosys job for loan interest posting was delayed. When I\nlooked into it, I found it was a dependency issue --- a predecessor job\nhadn't completed, so the interest posting job never got triggered in\nthe first place.\n\nThis one mattered because loan interest posting is time-sensitive ---\ncustomers and internal systems expect that to run and reflect by end of\nday, so a delay there isn't just a technical miss, it has a real\nbusiness and SLA impact if it isn't caught.\n\nI identified the dependency failure, worked through it, and got the\nschedule back on track within SLA.\n\nIt's a good example of why I don't just look at 'the job failed' ---\nI look at why it's stuck, because with EOD banking jobs, timing itself\nis part of the business requirement, not just a technical detail.\""
+ },
+ {
+  "id": "q12",
+  "heading": "Q1: How do you troubleshoot a file transfer failure?",
+  "parentHeading": "Scenario 5 --- Recurring SFTP File Transfer Failure",
+  "content": "First, I check the transfer logs --- SFTP and WinSCP logs --- to see\nexactly where it's failing: is it a connection issue, an authentication\nissue, or is the file just not landing on the other end.\n\nIn our setup, SFTP was configured with passwordless authentication, so\nif it's failing at the connection stage, that's usually a sign\nsomething's off with the keys or the target server, not a typo'd\npassword.\n\nFor this particular recurring issue, I went through the logs over a few\noccurrences instead of just looking at one failure in isolation, and\nthat's how I spotted the pattern --- it wasn't random, it was\nhappening under a specific condition. Once I understood the pattern,\ninstead of just fixing it that one time, I documented a proper\nworkaround in our KEDB so the next person hitting it doesn't have to\ndig through logs from scratch --- they can just follow the steps."
+ },
+ {
+  "id": "q13",
+  "heading": "Q2: What's the difference between FTP, SFTP, and SCP?",
+  "parentHeading": "Scenario 5 --- Recurring SFTP File Transfer Failure",
+  "content": "FTP is the plain File Transfer Protocol --- you connect, log in with a\nusername and password, and use commands like get and put to download or\nupload files. It's not encrypted, so it's not something we'd use for\nsensitive banking data.\n\nSFTP is Secure FTP --- same idea, but encrypted, and in our project it\nwas set up with passwordless authentication using keys, so files could\nmove securely without typing a password every time.\n\nSCP, Secure Copy, is a bit different --- it's meant for a quick\npoint-to-point copy between machines over a secure connection. It\ndoesn't open an interactive session like FTP does --- it just transfers\nthe file and exits. If passwordless auth isn't set up, it'll prompt\nfor a password. So depending on the situation --- interactive session\nversus a one-shot secure copy --- we'd pick FTP, SFTP, or SCP."
+ },
+ {
+  "id": "q14",
+  "heading": "Q3: What goes into a KEDB workaround entry vs a permanent fix?",
+  "parentHeading": "Scenario 5 --- Recurring SFTP File Transfer Failure",
+  "content": "A workaround entry is about restoring service fast --- it documents the\nsteps to get around the issue right now, without necessarily fixing\nwhat's causing it underneath.\n\nFor the SFTP case, that meant writing down exactly what to check in the\nlogs and what steps got the transfer going again, so the next engineer\nisn't starting from zero at 2 AM.\n\nA permanent fix is different --- that's addressing the actual root\ncause so the issue stops happening altogether. That usually means it's\ngone through problem management --- a proper RCA, a Jira ticket for\nwhatever needs to change, and it goes through SDLC and change management\nbefore it's deployed.\n\nOnce the permanent fix is live, I'd go back and update the KEDB entry\nto reflect that, so it's clear there's now a real fix and not just a\nworkaround."
+ },
+ {
+  "id": "q15",
+  "heading": "Q1: Tell me about a time you caught an issue after a deployment.",
+  "parentHeading": "Scenario 6 --- Change Management / Post-Deployment Anomaly",
+  "content": "During a core banking release --- this would've gone through our normal\nchange window --- I was doing the standard post-deployment health check\nafterward, and I noticed something that didn't look right. It wasn't a\nfull outage or anything customers were reporting yet, but it was enough\nof an anomaly that I didn't want to just note it and move on.\n\nI escalated it right away instead of waiting to see if it got worse.\nThat turned out to be the right call --- the team was able to look into\nit and fix it before it actually impacted any business SLA or customer.\n\nIf I'd waited, it could easily have turned into a full incident instead\nof something we caught early."
+ },
+ {
+  "id": "q16",
+  "heading": "Q2: What's your process for validating a release?",
+  "parentHeading": "Scenario 6 --- Change Management / Post-Deployment Anomaly",
+  "content": "After a change is deployed --- usually during our Friday night to\nSaturday morning change window --- my job as production support is to do\na health check on the application.\n\nWe have a checklist for this: confirming the app is up, the key portals\nand functionalities are working, and I go through it manually rather\nthan assuming it's fine just because the deployment itself succeeded.\n\nI'm specifically looking for anything that doesn't match expected\nbehavior --- error rates, functionality that looks off, anything unusual\nin the logs right after deployment.\n\nIf everything checks out, I sign off. If something looks even slightly\noff, I don't wait for it to escalate on its own --- I raise it."
+ },
+ {
+  "id": "q17",
+  "heading": "Q3: Have you ever had to escalate something that wasn't yet a full incident?",
+  "parentHeading": "Scenario 6 --- Change Management / Post-Deployment Anomaly",
+  "content": "Yes --- that post-deployment anomaly is a good example. At the point I\nnoticed it, it hadn't caused a customer-facing incident yet, so\ntechnically I could've just kept monitoring it.\n\nBut the way I think about it: if something's deviating from expected\nbehaviour right after a change went into production, and there's a real\nchance it could grow into something bigger or hit an SLA, it's better\nto flag it early and let the right people make the call, rather than sit\non it and hope it resolves itself.\n\nAt the same time, I try not to escalate every small blip --- that just\ncreates noise and makes people stop taking escalations seriously.\n\nSo the judgment call is really about impact and trend: is this something\nthat's isolated and likely to stay that way, or something that's tied\nto a change we just made and could scale up. In this case it was clearly\nthe latter, so I flagged it immediately, and it got fixed before it\nbecame a real incident."
+ }
+]

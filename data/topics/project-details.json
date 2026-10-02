@@ -1,0 +1,38 @@
+[
+ {
+  "id": "q1",
+  "heading": "What Type of Queries You Write or What Are the Tables Used in Your Project",
+  "parentHeading": null,
+  "content": "Usually, I get a request through Jira to generate a report --- they\ncreate a sub-task for it. We have quite a few tables in our project,\naround 70 of them.\n\nJust as an example, assuming the project is called SPG --- we've got\ntables like\n\n- spg_newcustomer, which holds customer details,\n\n- spg_supplier_details for payment details,\n\n- spg_salesperson for sales person info,\n\n- spg_invoice_details for invoice details,\n\n- spg_order for order details, and\n\n- spg_order_details\n\nwhich has all the order details including the actual items ordered.\n\nMost of the time, the sub-tasks I get are things like --- total number\nof sales made by a salesman in a day, week, month, or quarter, number of\norders pending in a day or week, number of failed orders, number of\nusers who opted for returns and refunds, or sales volume for a\nparticular product or category on a given day.\n\nI write a SQL query, extract the data as an Excel file, and send it over\nto the user."
+ },
+ {
+  "id": "q2",
+  "heading": "What Does Your Project Do",
+  "parentHeading": null,
+  "content": "So, I worked on the First Heritage Bank Online Banking Application ---\nthat's the primary digital banking platform for the bank's retail and\nsmall business customers.\n\nIt's built on a microservices architecture using Spring Boot and REST\nAPIs, deployed on Apache Tomcat servers on Linux, with an Oracle\ndatabase as the backend.\n\nThe application has quite a few major modules --- Login and Dashboard,\nAccounts, Payments, Loans, Cards, Statements, and an Operations console."
+ },
+ {
+  "id": "q3",
+  "heading": "What Does Your Application Do",
+  "parentHeading": null,
+  "content": "So, I worked on the First Heritage Bank Online Banking Application ---\nthat's the primary digital banking platform for the bank's retail and\nsmall business customers.\n\nIt's built on a microservices architecture using Spring Boot and REST\nAPIs, deployed on Apache Tomcat servers on Linux, with an Oracle\ndatabase as the backend.\n\nThe application has quite a few major modules --- Login and Dashboard,\nAccounts, Payments, Loans, Cards, Statements, and an Operations console.\n\nStarting with Login and Dashboard that's the entry point for every\ncustomer. It handles secure authentication using MFA, so things like\nOTP, security questions, or biometric login on mobile.\n\nOnce they log in, the dashboard gives them a full 360-degree view of\ntheir finances --- checking, savings, CDs, IRAs, 401ks, mortgages,\nHELOCs --- all in one place, along with recent transactions, pending\npayments, and alerts.\n\nAccounts module lets customers view and manage all their deposit and\nlending accounts in real time --- checking, savings, money market, CDs,\nIRAs, all of that.\n\nPayments was probably the busiest and most critical module --- it\nsupports multiple rails: ACH for domestic transfers and payroll, wire\ntransfers both domestic and international, Zelle for instant P2P\npayments, and Bill Pay utilities etc.\n\nLoans module covers mortgages, HELOCs, auto loans, personal loans,\nstudent loans.\n\nCards handles credit, debit, and ATM cards --- customers can\nactivate or deactivate cards, set travel notices, dispute transactions,\nmanage PINs and limits, or replace a lost card.\n\nFinally, Statements --- that module generates and delivers monthly,\nquarterly, and ad-hoc statements across all account types, with support\nfor e-statements and PDF downloads.\n\nSo overall, this is my banking platform, and my role was mainly around\nproduction support --- keeping these modules running smoothly,\nmonitoring for issues, and resolving them quickly within SLA."
+ },
+ {
+  "id": "q4",
+  "heading": "How do you monitor application activity in production? Walk me through your approach.",
+  "parentHeading": null,
+  "content": "For real-time monitoring, I prefer a dual approach. If I'm already on\nthe server, I use sudo journalctl -u fhb-app -f --- it tails the system\nservice logs instantly. As I interact with the UI, I see the exact\nrequests and responses flowing through.\n\nI use AWS CloudWatch: navigate to Log Groups → fhb-app-logs → the\nfhb-app-server stream → Start Tailing.\n\nIt gives the same live view without needing SSH or PuTTY, which is much\nbetter in a meeting.\n\nThis setup helped us quickly correlate UI actions with backend behaviour\nduring troubleshooting.\""
+ },
+ {
+  "id": "q5",
+  "heading": "Walk me through how you would investigate why a customer cannot log in.",
+  "parentHeading": null,
+  "content": "I'd start in the database. For Daniel Williams (FHB-10032), his customer\nrecord shows IS_ACTIVE = 0, which directly blocks login.\n\nI'd then run the full set of related queries to check accounts, any\npending reactivation requests, support tickets, and audit logs.\n\nIn this case, there was a pending reactivation request meant for the Ops\nConsole --- a maker-checker workflow where an Agent raises the request\nand a Reviewer approves it.\n\nThis prevents unilateral changes and adds proper controls.\n\nI'd also tail the application logs while attempting login to see any\nspecific error messages or authentication service calls.\n\nThis combination of logs + targeted SQL gives a complete picture very\nquickly.\""
+ },
+ {
+  "id": "q6",
+  "heading": "What tables or data points would you look at to get a 360° view of a customer?",
+  "parentHeading": null,
+  "content": "I start with the core customer table, then join to accounts (checking,\nsavings, CDs, etc.), then go deeper into transactions, transfers, cards,\nloans, statements (including the S3 key for the PDF), support tickets,\nand any change-request audit trail.\n\nFor system context, I also reference tables like FHB_ACH_BATCH for\novernight processing and FHB_OPS_USER for internal staff handling\nrequests.\n\nI even wrote a bonus query that shows two customers side-by-side with\ncounts of accounts, cards, loans, tickets, and pending requests ---\nsuper useful for quick comparisons during reviews."
+ }
+]
